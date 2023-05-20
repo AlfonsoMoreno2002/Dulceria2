@@ -3,8 +3,11 @@ const dulcesController = require('../controllers/Dulces.controller');
 const router = Router();
 
 router.get('/',dulcesController.obtenerDulces);
-router.post('/',dulcesController.insertarDulce);
-router.delete('/:cb',dulcesController.eliminarDulce);
+
 router.get('/:cb',dulcesController.buscarDulce);
+
+router.delete('/eliminar/:cb',dulcesController.eliminaDulce);
+
+router.post('/insertar',dulcesController.insertarDulce);
 
 module.exports=router;

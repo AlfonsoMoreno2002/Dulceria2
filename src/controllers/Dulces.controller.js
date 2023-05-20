@@ -1,24 +1,25 @@
 const dulcesController = {};
 const Dulces = require('../models/Dulces.model');
 
-dulcesController.obtenerDulces = async(req,res)=>{
-    const dulces = await Dulces.find();
-    res.json(dulces);
+dulcesController.obtenerDulces = async (req,res)=>{
+    const dulces = await Dulces.find()
+    res.render('../src/views/index.ejs',{dulces})
 }
 
 dulcesController.insertarDulce = async (req,res)=>{
-    const dulceInsertado = new Dulces(req.body);
-    dulceInsertado.save();
-    res.json('{"status":"Dulce insertado"}');
+    const productoInsertado = new Dulces(req.body)
+    productoInsertado.save()
+    res.redirect("/")
 }
 
-dulcesController.eliminarDulce = async (req,res)=>{
-    await Dulces.findOneAndDelete({codigobarras:req.params.cb});
-    res.json('{"status":"Dulce eliminado"}');
+dulcesController.eliminaDulce = async (req,res)=>{
+    await Dulces.findOneAndDelete({codigobarras:req.params.cb})
+    res.json('{"status":"Eliminado"}')
 }
 
 dulcesController.buscarDulce = async (req,res) =>{
-    const dulce = await Dulces.findOne({codigobarras:req.params.cb});
-    res.json(dulce);
+    const dulce1 = await Dulces.findOne({codigobarras:req.params.cb})
+    res.render('../src/views/editar.ejs',{dulce1})
 }
+
 module.exports=dulcesController;
